@@ -34,6 +34,7 @@ public class FlipkartTest extends BaseTest {
          * Asserting the applied Filter
          */
         mp.selectRamSize();
-        Assert.assertTrue(mp.isSelectedRamShowedUnderFilters(), "Selected RAM is not showing under filters");
+        //Assert.assertTrue(mp.isSelectedRamShowedUnderFilters(), "Selected RAM is not showing under filters");
+        Assert.assertEquals(mp.getFilterText(), "6 GB & Above", "Applied filter is not showing under filters");
     }
 }
