@@ -1,10 +1,20 @@
 package com.flipkart.pages;
 
 import com.util.DriverHelper;
+import com.util.Session;
 
 public class MobilesPage {
-    String ram = "//*[contains(text(), '6 GB & Above')]/preceding-sibling::div",
-            filter = "//*[contains(text(), 'Filters')]/ancestor::*[@class = 'xeGmCJ D_NGuZ']//*[text() = '6 GB & Above']";
+    String ram, filter;
+
+    public MobilesPage(){
+        if (Session.isCss()){
+            ram = "[title = '6 GB & Above']";
+            filter = "[class = '_3UZZGt']";
+        }else if (Session.isXpath()){
+            ram = "//*[@title = '6 GB & Above']";
+            filter = "//*[@class = '_3UZZGt']";
+        }
+    }
 
     DriverHelper dh = new DriverHelper();
 
@@ -18,8 +28,13 @@ public class MobilesPage {
         dh.waitForElementToBeVisible(ram);
         return dh.getTitle();
     }
-    public boolean isSelectedRamShowedUnderFilters(){
-        dh.waitForElementToBeVisible(filter);
+    /*public boolean isSelectedRamShowedUnderFilters(){
+        dh.waitForElementToBeVisible(filter, "css");
         return dh.isDisplayed(filter);
+    }*/
+
+    public String getFilterText(){
+        dh.waitForElementToBeVisible(filter);
+        return dh.getText(filter);
     }
 }
